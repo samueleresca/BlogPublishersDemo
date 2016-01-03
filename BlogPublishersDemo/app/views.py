@@ -10,40 +10,34 @@ from datetime import datetime
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    return render(
-        request,
+    return render(request,
         'app/index.html',
         context_instance = RequestContext(request,
         {
             'title':'Home Page',
             'year':datetime.now().year,
-        })
-    )
+        }))
 
-def contact(request):
-    """Renders the contact page."""
+def books(request):
+    """Renders the books page."""
     assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/contact.html',
+    return render(request,
+        'app/books.html',
         context_instance = RequestContext(request,
         {
-            'title':'Contact',
-            'message':'Your contact page.',
+            'title':'Books',
+            'message':'Your books page.',
             'year':datetime.now().year,
-        })
-    )
+        }))
 
-def about(request):
-    """Renders the about page."""
+def publishers(request):
+    """Renders the publishers page."""
     assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/about.html',
+    return render(request,
+        'app/publishers.html',
         context_instance = RequestContext(request,
         {
-            'title':'About',
-            'message':'Your application description page.',
+            'title':'Publishers',
+            'message':'Your publishers page.',
             'year':datetime.now().year,
-        })
-    )
+        }))
