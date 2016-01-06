@@ -7,6 +7,28 @@ from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
 from app.models import *
+from django.views.generic.base import View
+
+class GreetingView(View):
+    greeting = "Good Day"
+
+    def get(self, request):
+        return render(request,'app/greeting-get.html',
+        context_instance = RequestContext(request, {'greeting': self.greeting }))
+
+    def post(self, request):
+        return render(request,'app/greeting-post.html',
+        context_instance = RequestContext(request))
+
+def books_detail(request, id):
+    """Renders the books page."""
+
+    current_book = Book.objects.filter(id=id).first()
+
+    return render(request,
+        'app/books-detail.html',
+        context_instance = RequestContext(request, {
+            "book": current_book }))
 
 def home(request):
     """Renders the home page."""
@@ -31,18 +53,6 @@ def books(request):
             'year':datetime.now().year,
         }))
 
-def books_detail(request, id):
-    """Renders the books page."""
-    assert isinstance(request, HttpRequest)
-
-    current_book = Book.objects.filter(id=id).first()
-
-
-    return render(request,
-        'app/books-detail.html',
-        context_instance = RequestContext(request, {
-            "book": current_book }))
-
 def publishers(request):
     """Renders the publishers page."""
     assert isinstance(request, HttpRequest)
@@ -54,3 +64,4 @@ def publishers(request):
             'message':'Your publishers page.',
             'year':datetime.now().year,
         }))
+
